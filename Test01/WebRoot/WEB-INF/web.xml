@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
+  <display-name>Test01</display-name>
+  
+  <servlet>
+  	<servlet-name>OutServlet</servlet-name>
+  	<servlet-class>com.hy.test01.servlet.OutServlet</servlet-class>
+  </servlet>
+  
+  <servlet-mapping>
+  	<servlet-name>OutServlet</servlet-name>
+  	<url-pattern>/a</url-pattern>
+  </servlet-mapping>
+  
+  <servlet>
+  	<servlet-name>AddServlet</servlet-name>
+  	<servlet-class>com.hy.test01.servlet.AddServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>ToUpdateServlet</servlet-name>
+    <servlet-class>com.hy.test01.servlet.ToUpdateServlet</servlet-class>
+  </servlet>
+
+  
+  <servlet-mapping>
+  	<servlet-name>AddServlet</servlet-name>
+  	<url-pattern>/AddServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ToUpdateServlet</servlet-name>
+    <url-pattern>/ToUpdateServlet</url-pattern>
+  </servlet-mapping>
+</web-app>
