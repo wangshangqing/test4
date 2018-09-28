@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns:tx="http://www.springframework.org/schema/tx"
+    xmlns:context="http://www.springframework.org/schema/context"
+    xmlns:aop="http://www.springframework.org/schema/aop"
+    
+    xsi:schemaLocation="
+        http://www.springframework.org/schema/beans 
+        http://www.springframework.org/schema/beans/spring-beans.xsd
+        http://www.springframework.org/schema/tx
+        http://www.springframework.org/schema/tx/spring-tx.xsd
+        http://www.springframework.org/schema/context 
+        http://www.springframework.org/schema/context/spring-context.xsd
+        http://www.springframework.org/schema/aop
+        http://www.springframework.org/schema/aop/spring-aop.xsd">
+    <beans>
+
+		<!--开启注解扫描-->
+		<context:component-scan base-package="com.hy.ssm"></context:component-scan>
+
+		<!-- 加载properties -->
+		<context:property-placeholder location="classpath:db.properties"/>
+
+		<!-- 配置数据源 -->
+		<bean id="dataSource" class="com.mchange.v2.c3p0.ComboPooledDataSource">
+			<property name="driverClass" value="${driverClass}"></property>
+			<property name="jdbcUrl" value="${jdbcUrl}"></property>
+			<property name="user" value="${user}"></property>
+			<property name="password" value="${password}"></property>
+		</bean>
+
+		<!--<bean id="SqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+			<property name="dataSource" ref="dataSource"></property>
+			<property name="configLocation" value="classpath:SqlMapConfig.xml"></property>
+		</bean>-->
+
+		<bean id="SqlSessionFactory" class="com.baomidou.mybatisplus.extension.spring.MybatisSqlSessionFactoryBean">
+		<!-- 配置数据源 -->
+		<property name="dataSource" ref="dataSource"/>
+		<!-- 自动扫描 Xml 文件位置 -->
+		<!--<property name="mapperLocations" value="classpath:mybatis/*/*.xml"/>-->
+		<!-- 配置 Mybatis 配置文件（可无） -->
+		<property name="configLocation" value="classpath:SqlMapConfig.xml"/>
+		<!-- 配置包别名，支持通配符 * 或者 ; 分割 -->
+		<property name="typeAliasesPackage" value="com.hy.ssm.bean"/>
+		<!-- 枚举属性配置扫描，支持通配符 * 或者 ; 分割 -->
+		<!--<property name="typeEnumsPackage" value="com.baomidou.springmvc.entity.*.enums"/>-->
+
+		<!-- 以上配置和传统 Mybatis 一致 -->
+
+		<!-- 插件配置 -->
+		<property name="plugins">
+			<array>
+				<!-- 分页插件配置, 参考文档分页插件部分！！ -->
+				<!-- 如需要开启其他插件，可配置于此 -->
+			</array>
+		</property>
+
+		<!-- MP 全局配置注入 -->
+		<!--<property name="globalConfig" ref="globalConfig"/>-->
+	</bean>
+
+		<!-- 定义 MP 全局策略 -->
+		<!--<bean id="globalConfig" class="com.baomidou.mybatisplus.ent">
+			&lt;!&ndash; 主键策略配置 &ndash;&gt;
+			&lt;!&ndash; 可选参数
+                AUTO->`0`("数据库ID自增")
+                INPUT->`1`(用户输入ID")
+                ID_WORKER->`2`("全局唯一ID")
+                UUID->`3`("全局唯一ID")
+            &ndash;&gt;
+			<property name="idType" value="0"/>
+
+			&lt;!&ndash; 数据库类型配置 &ndash;&gt;
+			&lt;!&ndash; 可选参数（默认mysql）
+                MYSQL->`mysql`
+                ORACLE->`oracle`
+                DB2->`db2`
+                H2->`h2`
+                HSQL->`hsql`
+                SQLITE->`sqlite`
+                POSTGRE->`postgresql`
+                SQLSERVER2005->`sqlserver2005`
+                SQLSERVER->`sqlserver`
+            &ndash;&gt;
+			<property name="dbType" value="mysql"/>
+
+			&lt;!&ndash; 全局表为下划线命名设置 true &ndash;&gt;
+			<property name="dbColumnUnderline" value="true"/>
+		</bean>-->
+
+		<!--<bean id="studentDao" class="com.hy.ssm.dao.StudentDao">
+			<property name="sqlSessionFactory" ref="SqlSessionFactory"></property>
+		</bean>-->
+        <!--扫描所有mapper-->
+		<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+			<property name="basePackage" value="com.hy.ssm.mapper"></property>
+			<property name="sqlSessionFactoryBeanName" value="SqlSessionFactory"></property>
+		</bean>
+    </beans>
+	
+</beans>

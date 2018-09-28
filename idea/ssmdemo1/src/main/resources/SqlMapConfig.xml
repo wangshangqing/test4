@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration PUBLIC "-//mybatis.org//DTD Config 3.0//EN" "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<configuration>
+    <!-- 引入外部配置文件 -->
+    <properties resource="db.properties"></properties>
+    <!--设置日志开关-->
+    <settings>
+        <setting name="logImpl" value="LOG4J"/>
+    </settings>
+    <!--自定义別名-->
+
+    <typeAliases>
+        <!--<typeAlias type="com.hy.mybatis.bean.Student" alias="student"></typeAlias>-->
+        <package name="com.hy.ssm.bean"></package>
+    </typeAliases>
+    <!-- 配置mybatis运行环境 -->
+
+
+    <!--加载sql映射文件-->
+    <mappers>
+        <!-- <mapper resource="mapper/studentMapper.xml"></mapper>-->
+
+        <!--<package name="com.hy.ssm.plus"></package>-->
+
+    </mappers>
+
+</configuration>
